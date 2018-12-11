@@ -20,12 +20,11 @@ if ( !defined( 'ABSPATH' ) ) {
  * If the standard search form replacement is not enabled, we will render the live product search field using
  * its default settings.
  */
-function porto_child_wps_search_form() {
-	$form = '';
+function porto_child_wps_search_form( $form ) {
 	if ( class_exists( 'WooCommerce_Product_Search_Field' ) && method_exists( 'WooCommerce_Product_Search_Field', 'get_product_search_form' ) ) {
 		$form = WooCommerce_Product_Search_Field::get_product_search_form( '' );
 	}
-	if ( strlen( $form ) === 0 ) {
+	if ( function_exists( 'woocommerce_product_search' ) && strlen( $form ) === 0 ) {
 		$form = woocommerce_product_search( array( 'floating' => false, 'dynamic_focus' => false ) );
 	}
 	return $form;
